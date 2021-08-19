@@ -1,0 +1,5 @@
+export const ActionType = {
+    ADDCONTACT : "ADDCONTACT",
+    SELECTEDCONTACT : 'SELECTEDCONTACT',
+    ADDMESSAGE: "ADDMESSAGE"
+}
