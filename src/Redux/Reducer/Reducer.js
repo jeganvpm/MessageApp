@@ -22,15 +22,15 @@ export const SelectedContactReducer = (state = initialContact, action) => {
     }
 }
 
-const initialMessage = {
-    messages : []
-}
+// const initialMessage = {
+//     messages : []
+// }
 
-export const MessageReducer = (state = initialMessage, action) => {
-    switch (action.type) {
-        case ActionType.ADDMESSAGE:
-            return {...state, messages:action.payload}
-        default:
-            return state;
-    }
-}
+// export const MessageReducer = (state = initialMessage, action) => {
+//     switch (action.type) {
+//         case ActionType.ADDMESSAGE:
+//             return {...state, messages:action.payload}
+//         default:
+//             return state;
+//     }
+// }

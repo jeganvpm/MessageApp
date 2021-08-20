@@ -10,22 +10,17 @@ import ContactList from './ContactList';
 const AddContact = () => {
     const contacts = useSelector((state) => state)
     const dispatch = useDispatch();
-console.log('contacts',contacts);
 
 let initialValues = {
     firstname:'',
     lastname:'',
     phonenumber:'',
     email:'',
-    messages: []
+    getMessageDetails: []
 
 }
 
-console.log(initialValues);
 let onSubmit = (values, onSubmitProps) => {
-    debugger;
-console.log('allcontacts',contacts.allContacts.contacts);    
-console.log('Form Data', values);
 let getId = contacts.allContacts.contacts.length + 1
 dispatch(addContact([{id:getId,...values},...contacts.allContacts.contacts]))
 onSubmitProps.resetForm();
@@ -103,7 +98,7 @@ let validationSchema = yup.object({
                 <div className="row btn_row">
                 <div className="col">
                    <button type="submit" className="btn btn-secondary btn_save">Save</button>
-                   <button className="btn btn-secondary btn_discard">Discard</button>
+                   <button className="btn btn-secondary btn_discard" onClick={e => formik.resetForm()}>Discard</button>
                 </div>
                 </div>
             </form>

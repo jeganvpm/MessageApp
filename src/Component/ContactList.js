@@ -5,18 +5,16 @@ import { Link } from 'react-router-dom';
 
 const ContactList = () => {
     const contacts = useSelector((state) => state.allContacts);
-    // const contacts1 = useSelector((state) => state.allContacts);
-     console.log('cc',contacts);
 
     let getListed = contacts.contacts.map((v,k)=>{
         return (
 
              <div className="contact_detail col-md-12 row">
                  <div className="col-md-3 image_icon">
-                    Image
+                 <img src="user-icon.jpg" alt="user" className="image_user" />
                  </div>
                 <div className="col-md-5">
-                    <div className="">{v.firstname}</div>
+                    <div className="name">{v.firstname} {v.lastname}</div>
                     <div className="">{v.phonenumber}</div>
                     <div className="">{v.email}</div>
                 </div>

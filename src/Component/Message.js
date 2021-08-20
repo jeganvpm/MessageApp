@@ -3,70 +3,63 @@ import { FaPaperclip, FaRegPaperPlane, FaArrowLeft } from 'react-icons/fa'
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
-import { selectedContact, addMessage, addContact } from '../Redux/ContactAction';
+import { selectedContact, addContact } from '../Redux/ContactAction';
 import MessageList from './MessageList';
 
 const Message = () => {
     const  {messageId}  = useParams();
-    console.log('messageId',messageId);
-    const contacts = useSelector((state) => state.allContacts);
-    const getContact = useSelector((stated) => stated.contact);
+    const getContact = useSelector((state) => state.contact);
     const getAllContact = useSelector((state) => state.allContacts.contacts);
     const getAllContactMsg = useSelector((state) => state.allContacts.contacts);
-    console.log('getAllContactMsg',getAllContactMsg);
-    console.log('getAllContact',getAllContact);
-    console.log('getContact',getContact['0']);
     const dispatch = useDispatch();
-
-    const messages = useSelector((state) => state.allMessages.messages);
-    console.log('messages',messages);
 
     React.useEffect(()=>{
         if(messageId && messageId !==''){
-           debugger;
             let parseId = parseInt(messageId)
+            
             let setContact = getAllContact.filter((v,k)=> v.id === parseId)
-            console.log('setContact', setContact);
-            dispatch(selectedContact(setContact));
+            dispatch(selectedContact([...setContact]));
             
             }
     },[messageId])
     
     const [message, setMessage] = useState('');
-    //const [content, setContent] = useState([]);
-   
+    let currTime = new Date().toLocaleTimeString();
+    const [time, setTime] = useState('');
+
     const onMessageChange = (e) => {
         setMessage(e.target.value);
+        setTime(currTime);
     }
 
     const onSendData = (e) => {
-        debugger;
         e.preventDefault();
-        //setContent([...content, message]);
-        dispatch(addMessage([...messages ,message]))
-        //getAllContactMsg[message];
-        if(messages.length > 0) {
-            let parseId = parseInt(messageId)
-             getAllContact.filter((v,k)=> {
-                if(v.id === parseId) {
-                    v.messages.push(...messages)
-                }
-               dispatch(addContact([v, ...contacts]));
-            })
-            
+        let parseId = parseInt(messageId);
+        let listedContact = [...getAllContact]
+        let insertMsg = listedContact.map((v,k)=>{
+            if(v.id=== parseId && message){
+                v.getMessageDetails.push({message:message, time:time});
             }
+            return listedContact;
+        })
+        dispatch(addContact([...listedContact]));
+
         setMessage('');
     }
 
-    const getMessageList = messages.map((v,k)=> (
+    const getMessageList = getContact['0'] && getContact['0'].getMessageDetails && getContact['0'].getMessageDetails.map((v,k)=> (
     
     <div className="row content_section">
-    <div className="col-md-12 message_text">
-      <div className="image_show col-md-2">
+        <div className="col-md-2 messager_image">
+        <img src="../small_user.jpg" alt="messager" className="messager_user" />
+        </div>
+    <div className="col-md-9 message_text">
+      <div className="image_show">
           <div className="message_show">
-          <div key={k}>{v}</div>
+          <div className="message_text" key={k}>{v.message}</div>
             </div>
         </div>
+        <div className="time_text">{v.time}</div>
         </div>
     </div>
     ))
@@ -78,6 +71,7 @@ const Message = () => {
         <div className="row new_contact">
              <div className="col-md-1 arrow_left"><Link to="/"><FaArrowLeft /></Link></div>
              <div className="col-md-10 messager_name">{getContact['0'] && getContact['0'].firstname}</div> 
+             
             </div>
             <div className="m_height">
         {getMessageList}

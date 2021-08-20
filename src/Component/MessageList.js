@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 
 const MessageList = () => {
     const contacts = useSelector((state) => state.allContacts);
-    //console.log('cc',contacts);
 
     let getListed = contacts.contacts.map((v,k)=>{
         return (
@@ -13,11 +12,13 @@ const MessageList = () => {
             <Link to={`/message/${v.id}`}>
              <div className="contact_detail col-md-12 row">
                  <div className="col-md-3 image_icon">
-                    Image
+                  <img src="../user-icon.jpg" alt="messages" className="image_user" />
                  </div>
                 <div className="col-md-9">
-                    <div className="">{v.firstname}</div>
-                    <div className="">Lores serewer Lores serewer Lores serewer Lores serewer</div>
+                    <div className="name">{v.firstname} {v.lastname}</div>
+                    <div className="">
+                    {v.getMessageDetails[0] && v.getMessageDetails[0].message ? v.getMessageDetails[0].message :  "Lores serewer Lores serewer Lores serewer Lores serewer"}
+                    </div>
                 </div>
              </div>
              </Link>
@@ -47,7 +48,6 @@ const MessageList = () => {
             </div>
         </div>
         </div>
-                 {/* <input type="text" className="form-control input_search" name="search" id="search" placeholder="Search People"/> */}
              </div>
          </div>
          <div className="contact">

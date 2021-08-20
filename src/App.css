@@ -97,6 +97,7 @@
   margin: 20px 0px!important;
   border-bottom: 1px solid#fff;
   padding: 10px 0px!important;
+  cursor: pointer!important;
 }
 
 .msg_icon, .call_icon {
@@ -116,7 +117,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  cursor: pointer;
+  cursor: pointer!important;
 }
 
 .message_input {
@@ -151,17 +152,19 @@
   font-size: 24px!important;
   background-color: #12243a!important;
   color: #fff!important;
+  cursor: pointer!important;
 }
 
 .message_text {
   border: 1px solid#40505e!important;
-  padding: 20px!important;
+  padding-top: 4px!important;
   border-radius: 14px!important;
   background: #40505e!important;
+
 }
 
 .content_section {
-  padding: 30px 124px!important;
+  padding: 30px!important;
 }
 
 .message_show {
@@ -208,6 +211,28 @@
     border-top-left-radius: 0px!important;
 }
 
-/* .messager_name {
-  padding-left: 20px!important;
-} */
+.messager_name, .name {
+  text-transform: capitalize;
+}
+
+.image_user {
+  width: 82%!important;
+}
+
+.error {
+  color: red;
+  padding-left: 10px;
+}
+
+.messager_user {
+  width: 64%!important;
+}
+
+.message_text {
+  word-wrap: break-word;
+}
+
+.time_text {
+  text-align: right!important;
+  color: #fff!important;
+}
