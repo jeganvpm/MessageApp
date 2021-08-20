@@ -16,5 +16,5 @@ function App() {
     </div>
   );
 }
-// https://github.com/jeganvpm/MessageApp
+
 export default App;
