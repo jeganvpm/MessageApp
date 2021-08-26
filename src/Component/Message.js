@@ -1,4 +1,4 @@
-import React, {useState } from 'react'
+import React, {useState, useEffect } from 'react'
 import { FaPaperclip, FaRegPaperPlane, FaArrowLeft } from 'react-icons/fa'
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router';
@@ -9,23 +9,14 @@ import MessageList from './MessageList';
 const Message = () => {
     const  {messageId}  = useParams();
     const getContact = useSelector((state) => state.contact);
+    console.log('selectedContact', getContact);
     const getAllContact = useSelector((state) => state.allContacts.contacts);
-    const getAllContactMsg = useSelector((state) => state.allContacts.contacts);
+    console.log('allSelectedContact', getAllContact);
     const dispatch = useDispatch();
-
-    React.useEffect(()=>{
-        if(messageId && messageId !==''){
-            let parseId = parseInt(messageId)
-            
-            let setContact = getAllContact.filter((v,k)=> v.id === parseId)
-            dispatch(selectedContact([...setContact]));
-            
-            }
-    },[messageId])
-    
     const [message, setMessage] = useState('');
     let currTime = new Date().toLocaleTimeString();
     const [time, setTime] = useState('');
+    //const [clck, setClck] = useState('');
 
     const onMessageChange = (e) => {
         setMessage(e.target.value);
@@ -35,17 +26,37 @@ const Message = () => {
     const onSendData = (e) => {
         e.preventDefault();
         let parseId = parseInt(messageId);
-        let listedContact = [...getAllContact]
-        let insertMsg = listedContact.map((v,k)=>{
-            if(v.id=== parseId && message){
-                v.getMessageDetails.push({message:message, time:time});
+        let listedContact = [...getAllContact];
+        listedContact.map((v,k)=>{
+            v = JSON.parse(JSON.stringify(v));
+            if(v.id === parseId && message){
+                
+                v.getMessageDetails && v.getMessageDetails.push({message, time});
+                listedContact[k] = v
+                dispatch(selectedContact([v]));
             }
             return listedContact;
-        })
-        dispatch(addContact([...listedContact]));
+            
+        });
 
+        //console.log(listedContact[parseId].getMessageDetails);
+        dispatch(addContact([...listedContact]));
+        //setClck(message);
         setMessage('');
     }
+
+    useEffect(()=>{
+        //function test() {
+
+        if(messageId && messageId !==''){
+            
+            let parseId = parseInt(messageId);
+            let setContact = getAllContact.filter((v,k)=> v.id === parseId)   
+            console.log(setContact)
+            dispatch(selectedContact(setContact)); 
+            }
+       
+    },[messageId])
 
     const getMessageList = getContact['0'] && getContact['0'].getMessageDetails && getContact['0'].getMessageDetails.map((v,k)=> (
     
@@ -84,7 +95,7 @@ const Message = () => {
                 <span className="input-group-prepend">
                     <div className="input-group-text border-right-0 left_message_icon"><FaPaperclip/></div>
                 </span>
-                <input className="form-control py-2 border-left-0 border" type="search" value={message} name="message" className="form-control message_input" onChange={onMessageChange} />
+                <input className="form-control py-2 border-left-0 border message_input" type="search" value={message} name="message" onChange={onMessageChange} />
                 <span className="input-group-append">
                 <button className="btn btn-outline-secondary border-left-0 border right_message_icon" type="button" onClick={onSendData}>
                 <FaRegPaperPlane/>
@@ -101,3 +112,4 @@ const Message = () => {
 }
 
 export default Message
+

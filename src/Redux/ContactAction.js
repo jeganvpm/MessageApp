@@ -13,10 +13,3 @@ export const selectedContact = (contact) => {
         payload: contact
     }
 }
-
-export const addMessage = (messages) => {
-    return {
-        type:ActionType.ADDMESSAGE,
-        payload: messages
-    }
-}

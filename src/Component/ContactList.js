@@ -9,7 +9,7 @@ const ContactList = () => {
     let getListed = contacts.contacts.map((v,k)=>{
         return (
 
-             <div className="contact_detail col-md-12 row">
+             <div className="contact_detail col-md-12 row" key={v.id}>
                  <div className="col-md-3 image_icon">
                  <img src="user-icon.jpg" alt="user" className="image_user" />
                  </div>
