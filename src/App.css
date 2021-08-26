@@ -236,3 +236,12 @@
   text-align: right!important;
   color: #fff!important;
 }
+
+.error {
+  color: red;
+}
+
+.listedPhone {
+  padding-left: 64px!important;
+  padding-bottom: 12px!important;
+}

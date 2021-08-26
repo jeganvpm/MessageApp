@@ -15,7 +15,7 @@ const ContactList = () => {
                  </div>
                 <div className="col-md-5">
                     <div className="name">{v.firstname} {v.lastname}</div>
-                    <div className="">{v.phonenumber}</div>
+                    <div className="">{v.phNumbers[0]}</div>
                     <div className="">{v.email}</div>
                 </div>
                 <div className="col-md-2 msg_icon">
